@@ -3,6 +3,7 @@ import { FonctionRexService } from '../../../services/fonction-rex.service';
 import { Rex } from '../../../models/rex';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listerex',
@@ -13,6 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ListerexComponent implements OnInit{
   materiels: Rex[] = [];
   // rex : Rex[] = [];
+  data$!: Observable<any>; // Remplacez any par le type de vos données
+
 
   mat! : Rex;
   //rexp : Rex[] = [];
@@ -25,6 +28,12 @@ export class ListerexComponent implements OnInit{
     private route: Router,private router: ActivatedRoute){}
 
   ngOnInit(): void {
+
+    //this.loadData(1, 10); // Charger la première page avec une taille de 10 items par page
+
+
+
+
     //getAllMateriel(){
       this.myFormenv = this.fb.group({
 
@@ -65,6 +74,11 @@ export class ListerexComponent implements OnInit{
   //     this.mat = product;
   //   });
   // }
+
+  // loadData(page: number, size: number): void {
+  //   this.data$ = this.functionService.getPaginatedData(page, size);
+  // }
+
 
   chargeData(rex: Rex){
     this.mat = rex;

@@ -14,7 +14,7 @@ export class CreaterexComponent implements OnInit{
   myFormenv! : FormGroup;
 
   constructor( private fb : FormBuilder,
-  private mats : FonctionRexService ){}
+  private mats : FonctionRexService){}
 
   ngOnInit(): void {
 
@@ -59,6 +59,6 @@ export class CreaterexComponent implements OnInit{
     }
   }
 
-
-
 }
+
+

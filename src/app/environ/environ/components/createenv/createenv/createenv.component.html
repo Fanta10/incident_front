@@ -1,3 +1,4 @@
+<div class="container-fluid">
 <button type="button" class="btn btn-success boutonModal mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="bi bi-plus-lg fw-bold"></i> Enregistrer Environnement</button>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -33,5 +34,22 @@
     </div>
   </div>
 </div>
+<div class="card-head mt-5 taille">
+
+  <form>
+    <div class="input-group">
+      <!-- <label class="input-group-text">Environnement:</label> -->
+      <input type="text" class="form-control" placeholder="recherche un environnement">
+      <button class="btn btn-info">
+        <i class="bi bi-search"></i>
+        Search
+      </button>
+    </div>
+
+  </form>
 <h2 class="fw-bold text-center text-primary mt-3">Liste des environnements</h2>
+</div>
+
 <app-listeenv></app-listeenv>
+
+</div>

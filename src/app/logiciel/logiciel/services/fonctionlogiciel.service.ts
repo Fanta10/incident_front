@@ -9,6 +9,7 @@ export class FonctionlogicielService {
 
   constructor(private httpService : HttpService) { }
 
+
   setMat(mat : any) {
     return this.httpService.post({endpoint : '/v1/logiciel',data : mat});
    }

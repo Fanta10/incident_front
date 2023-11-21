@@ -1,3 +1,4 @@
+<div class="container-fluid">
 <button type="button" class="btn btn-success boutonModal mt-4" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><i class="bi bi-plus-lg fw-bold"></i> Enregistrer Application</button>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -63,6 +64,24 @@
     </div>
   </div>
 </div>
-<h2 class="fw-bold text-center text-primary mt-3">Liste des applications</h2>
+
+
+<div class="card-head mt-5 taille">
+
+  <form [formGroup]="myForm" (ngSubmit)="Search()">
+    <div class="input-group">
+      <!-- <label class="input-group-text"></label> -->
+      <input type="search" formControlName="libelleApp" class="form-control " placeholder="rechercher une application">
+      <button class="btn btn-info">
+        <i class="bi bi-search"></i>
+        Search
+      </button>
+    </div>
+
+  </form>
+  <h2 class="fw-bold text-center text-primary mt-3">Liste des applications</h2>
+
+</div>
 
 <app-listelogiciel></app-listelogiciel>
+</div>

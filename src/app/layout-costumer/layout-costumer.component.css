@@ -3,7 +3,7 @@
 /* The side navigation menu */
 .sidebar {
   margin-top: 6px;
-  margin-left: -10px;
+  margin-left: -12px;
   margin-bottom: 0px;
   padding: 0px;
   width: 200px;
@@ -57,8 +57,12 @@ div.content {
     width: 100%;
     height: auto;
     position: relative;
+
+
   }
-  .sidebar a {float: left;}
+  .sidebar a {
+    /*float: left; */
+  }
   div.content {margin-left: 0;}
 }
 

@@ -39,8 +39,8 @@ export class ConsultationresoComponent implements OnInit{
         //codeInc:['', Validators.required],
         //libelleInc:['', Validators.required],
         incident:['', Validators.required],
-        //  logiciel:['', Validators.required],
-        //  environment:['', Validators.required]
+         logiciel:['', Validators.required],
+         environment:['', Validators.required]
 
 
         })

@@ -5,6 +5,7 @@ import { FonctionenvironService } from '../../../services/fonctionenviron.servic
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FonctionLoginService } from 'src/app/Auth/Login/service/fonction-login.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-listeenv',
@@ -19,7 +20,7 @@ export class ListeenvComponent implements OnInit{
 
   constructor(private functionService : FonctionenvironService,
     private fb : FormBuilder,
-    private route: Router,private router: ActivatedRoute, privateauth : FonctionLoginService){}
+    private route: Router,private router: ActivatedRoute, privateauth : FonctionLoginService, private http : HttpClient){}
 
   ngOnInit(): void {
 
@@ -32,11 +33,13 @@ export class ListeenvComponent implements OnInit{
 
 
       })
+
+    
     //getAllMateriel(){
       this.functionService.getMateriels().subscribe((response : any) => {
         console.log('responsse' + response)
         this.materiels = response;
-        console.log(this.materiels);
+        console.log('rree'+ this.materiels);
 
     });
     //getRex
@@ -64,6 +67,8 @@ export class ListeenvComponent implements OnInit{
     });
   }
   delete(materiel:Environ){
+    let conf = confirm("Are you sure?");
+    if(!conf) return;
     this.functionService.deleteMateriel(materiel.idEnv).subscribe({
       next : data => {
         //console.log(data);
@@ -109,7 +114,14 @@ export class ListeenvComponent implements OnInit{
 
   }
 
+//   const headers = new HttpHeaders({
+//     'Content-Type': 'application/json',
+//     'Authorization': 'Bearer '
+// });
 
+// this.http.get('http://localhost:8070/v1/environnement', { headers }).subscribe(response => {
+//     // Handle the response
+// });
 
 
 

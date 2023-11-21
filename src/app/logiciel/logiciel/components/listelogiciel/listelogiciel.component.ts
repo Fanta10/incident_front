@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ListelogicielComponent implements OnInit{
   materiels: Logiciel[] = [];
-  rex : Rex[] = [];
+  rexList : Rex[] = [];
   mat! : Logiciel;
   myFormenv! : FormGroup;
   //mat! : Environ
@@ -38,13 +38,13 @@ export class ListelogicielComponent implements OnInit{
     //getAllMateriel(){
       this.functionService.getMateriels().subscribe((response : any) => {
         this.materiels = response;
-        console.log(this.materiels);
+        console.log('jj' + this.materiels);
 
     });
 
       this.fonctionRexService.getRex().subscribe((data : any) => {
-        this.rex = data;
-        console.log(this.rex);
+        this.rexList = data;
+        console.log(this.rexList);
       });
 
 
@@ -61,13 +61,15 @@ export class ListelogicielComponent implements OnInit{
       idEnv: appl.idApp,
       libelleApp: appl.libelleApp,
       descriptionApp: appl.descriptionApp,
-      rex: appl.rex.nom
+      rex: appl.rex.idRex
+
 
 
 
     });
   }
   delete(materiel: Logiciel){
+
     this.functionService.deleteMateriel(materiel.idApp).subscribe({
       next : data => {
         //console.log(data);
@@ -113,10 +115,37 @@ export class ListelogicielComponent implements OnInit{
     });
 
   }
+  //
+  // edit1(){
+  //    //let idApp= this.mat.idApp;
+  //    let libelleApp = this.myFormenv.get('libelleApp')?.value;
+  //    let descriptionApp = this.myFormenv.get('descriptionApp')?.value;
+  //     let rex = this.myFormenv.get('rex')?.value;
+  //     this.functionService.updateMateriel({libelleApp:libelleApp,descriptionApp:descriptionApp,rex:{"idRex":rex}}).subscribe({
+
+
+
+  //       next : data => {
+  //         console.log(data)
+  //         //alert("succes")
+  //         window.location.reload();
+
+
+
+  //       },
+  //       error : error => {
+  //         console.log(error)
+  //         alert("error")
+  //       }
+  //     });
+  //     console.log(this.myFormenv.value)
+  //   }
+
+  }
 
 
 
 
 
 
-}
+

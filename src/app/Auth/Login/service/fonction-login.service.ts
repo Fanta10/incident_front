@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpService } from 'src/app/logiciel/logiciel/services/http.service';
+import { Token } from 'src/app/shared/models/token';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { environment } from 'src/environnement/environnement.dev';
 
 @Injectable({
@@ -10,15 +12,44 @@ import { environment } from 'src/environnement/environnement.dev';
 export class FonctionLoginService {
 
    apiUrl = 'http://localhost:8070/auth/generateToken';
-   
 
 
-  constructor(private http: HttpClient,
+
+  constructor(private http: HttpClient
 
      ) { }
 
+     login1(credentials: Credential): Observable<Token>{
+      return this.http.post<Token>(this.apiUrl, credentials)
+    }
 
-public   login(credentials: any): Observable<any> {
+
+    //  login2(loginRequest: any): Observable<any> {
+    //   return this.http.post(environment.BASE_URL + "/authenticate", loginRequest)
+    // }
+
+    // // hello(): Observable<any> {
+    // //   return this.http.get(environment.BASE_URL + '/v1/rex/', {
+    // //     headers: this.createAuthorizationHeader()
+    // //   });
+    // // }
+
+    // private createAuthorizationHeader() {
+    //   const jwtToken = localStorage.getItem('JWT');
+    //   if (jwtToken) {
+    //     return new HttpHeaders().set(
+    //       'Authorization', 'Bearer ' + jwtToken
+    //     )
+    //   } else {
+    //     console.log("JWT token not found in the Local Storage");
+    //   }
+    //   return null;
+    // }
+
+    //end
+
+
+public login(credentials: any): Observable<any> {
 console.log('fdf',this.token)
   // Ajoutez les en-têtes d'autorisation si nécessaire
   const headers = new HttpHeaders({
@@ -72,4 +103,12 @@ token = this.getToken()
 //     'Authorization': 'Bearer  ${token}'
 //   });
 // }
+
+logout(){
+  // Supprimer le token du localStorage
+  localStorage.removeItem('token');
+}
+
+
+        // en cas de reinitialisation de mot de pass
 }

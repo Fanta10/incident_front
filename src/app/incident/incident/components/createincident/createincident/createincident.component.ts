@@ -65,12 +65,12 @@ export class CreateincidentComponent implements OnInit {
 
 
     })
-    this.incident.getIncident().subscribe((data1: any) => {
-      this.incident = data1;
-      console.log(data1)
+    // this.incident.getIncident().subscribe((data1: any) => {
+    //   this.incident = data1;
+    //   console.log(data1)
 
 
-    })
+    // })
   }
   onSave() {
     if (this.myForm.invalid) {

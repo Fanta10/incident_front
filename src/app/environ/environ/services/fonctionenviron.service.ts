@@ -16,7 +16,7 @@ export class FonctionenvironService {
 
   constructor(private httpService : HttpService, private http:HttpClient, private auth:FonctionLoginService) { }
 
-  token = this.auth.getToken();
+ // token = this.auth.getToken();
 //   getEnv() : Observable<any>{
 //    //let token = this.auth.getToken()
 // console.log('fanta'+ this.token)
@@ -40,7 +40,7 @@ export class FonctionenvironService {
    }
 
    getMateriels(){
-    console.log("fanta "  +  this.token)
+    //console.log("fanta "  +  this.token)
     //console.log("head "+  this.httpHeader())
     //console.log('data' + this.httpService.get("/v1/environnement"))
     return this.httpService.get('/v1/environnement');

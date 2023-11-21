@@ -1,10 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FonctionLoginService } from '../../service/fonction-login.service';
+import { TokenService } from 'src/app/services/token.service';
 import { User } from '../../models/user';
-import { data } from 'jquery';
+import { FonctionLoginService } from '../../service/fonction-login.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { finalize } from 'rxjs';
+import { Utilisateur } from 'src/app/shared/models/utilisateur';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +14,23 @@ import { data } from 'jquery';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
+  currentUser: Utilisateur | null = null;
+	jwtToken: string | undefined;
+
+  // form: ICredential = {
+  //   email: '',
+  //   password: ''
+  // }
   myForm! : FormGroup;
   user! : User
   submitted = false;
   constructor(private route: Router, private fb: FormBuilder,
-    private authService: FonctionLoginService){
+    private authService1: FonctionLoginService,    private tokenService: TokenService,  private authService: AuthService,){}
 
-  }
   ngOnInit(): void {
+
+
+
     this.myForm = this.fb.group({
 
       email:['', [Validators.required, Validators.email]],
@@ -32,6 +43,17 @@ export class LoginComponent implements OnInit{
   get f() {
     return this.myForm.controls;
   }
+
+  // onSubmit(): void{
+  //   console.log(this.form)
+  //   this.authService.login(this.form).subscribe(
+  //     data => {
+  //       console.log(data.access_token)
+  //       this.tokenService.saveToken(data.access_token)
+  //     },
+  //     err => console.log(err)
+  //   )
+  // }
 
 
   auth() {
@@ -53,7 +75,7 @@ export class LoginComponent implements OnInit{
 
   //  };
 
-    this.authService.login(this.myForm.value).subscribe({
+    this.authService1.login(this.myForm.value).subscribe({
       next : data => {
         // Gérer la réponse réussie du serveur*
         let responseData;
@@ -61,7 +83,8 @@ export class LoginComponent implements OnInit{
       responseData = data.token ;
       console.log(responseData)
       // Vous pouvez maintenant stocker le token, par exemple dans le stockage local
-      localStorage.setItem('token', responseData);
+      //localStorage.setItem('token', responseData);
+      this.tokenService.saveToken(data.token)
       this.route.navigate(['/dashboard'])
     } catch (e) {
       console.error('Erreur lors de l\'analyse JSON de la réponse :', e);
@@ -83,8 +106,57 @@ export class LoginComponent implements OnInit{
 
 
    }
+   //deb
+  //  login() {
+  //   console.log(this.myForm.value);
+  //   this.authService.login2(this.myForm.value).subscribe((response) => {
+  //     console.log(response);
+  //     if (response.jwtToken) {
+  //       alert(response.jwtToken);
+  //       const jwtToken = response.jwtToken;
+  //       localStorage.setItem('JWT', jwtToken);
+  //       this.route.navigateByUrl('/dashboard');
+  //     }
+  //   })
+  //}
+
+  // login(): void {
+  //   const credentials = {
+  //     // Vos informations d'authentification
+  //   };
+
+  //   this.authService.login(this.myForm.value).subscribe(response => {
+  //     const token = response.access_token;
+  //     localStorage.setItem('access_token', token);
+  //     this.route.navigate(['/dashboard'])
+  //   });
+  // }
 
 
+  connexion(): void {
+    
 
+    if (!this.myForm.invalid) {
+
+      this.authService.authentifier(this.myForm.getRawValue())
+        .pipe(
+          finalize(() => {})
+        )
+        .subscribe((value) => {
+          localStorage.removeItem("token");
+          this.jwtToken = value.token;
+          this.authService.enregistrerToken(this.jwtToken);
+          this.currentUser = this.authService.getUtilisateurConnecte();
+          this.route.navigate(['/dashboard'])
+        },
+        (error) => {
+          console.error('Erreur lors de l\'analyse JSON de la réponse :', error);
+
+          // Gérer l'erreur de parsing JSON
+          return;
+        }
+        );
+      }
+    }
 
 }

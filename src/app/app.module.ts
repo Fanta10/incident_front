@@ -14,10 +14,18 @@ import { DashboardModule } from './dashboard/dashboard/dashboard.module';
 import { DataTablesModule } from 'angular-datatables';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-//import { TokenInterceptorService } from './interceptors/token-interceptor.service';
+import { ErrorComponent } from './_utils/error/error/error.component';
+import {JwtHelperService, JwtModule} from "@auth0/angular-jwt";
+import { ApiUrlInterceptor } from './shared/interceptors/api-url.interceptor';
+import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 
 
+export function tokenGetter(): string {
+	const token = localStorage.getItem('token');
+	return token ? token : '';
+}
 
 
 @NgModule({
@@ -25,6 +33,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     AppComponent,
     LayoutCostumerComponent,
     LoginComponent,
+    ErrorComponent,
 
   ],
   imports: [
@@ -37,18 +46,25 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     DashboardModule,
     DataTablesModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {tokenGetter: tokenGetter}
+    }),
+
+	],
+exports: [
+	],
 
 
-  ],
   providers: [
-   // {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
-  //  {
-  //   provide: HTTP_INTERCEPTORS,
-  //   useClass: TokenInterceptorService,
-  //   multi: true,
-  // },
-  ],
+   TokenInterceptor
+
+    // JwtHelperService,
+		// {provide: HTTP_INTERCEPTORS, useClass: ApiUrlInterceptor, multi: true},
+		// {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+		],
+
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

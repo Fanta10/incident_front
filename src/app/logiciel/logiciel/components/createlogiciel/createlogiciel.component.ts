@@ -70,6 +70,8 @@ export class CreatelogicielComponent implements OnInit{
       console.log(this.myForm.value)
     }
   }
-
+  Search(){
+    
+  }
 
 }

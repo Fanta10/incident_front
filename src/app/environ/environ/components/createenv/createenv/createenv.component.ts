@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Environ } from '../../../models/environ';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FonctionenvironService } from '../../../services/fonctionenviron.service';
+import { HttpService } from 'src/app/logiciel/logiciel/services/http.service';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-createenv',
@@ -13,8 +15,12 @@ export class CreateenvComponent implements OnInit{
   //rexp : Rex[] = [];
   myFormenv! : FormGroup;
 
+  // customers! : Observable<Array<Environ>>;
+  // errorMessage!: string;
+  // searchFormGroup! : FormGroup;
+
   constructor( private fb : FormBuilder,
-  private mats : FonctionenvironService ){}
+  private mats : FonctionenvironService, private fonctionSearch : HttpService ){}
 
   ngOnInit(): void {
 
@@ -25,6 +31,11 @@ export class CreateenvComponent implements OnInit{
 
 
       })
+
+      // this.searchFormGroup=this.fb.group({
+      // keyword : this.fb.control("")
+      // });
+      // this.Search();
 
       // this.rex.getRex().subscribe((donnees : any) => {
       //   this.rexp = donnees;
@@ -58,5 +69,7 @@ export class CreateenvComponent implements OnInit{
     }
   }
 
+
+  
 
 }

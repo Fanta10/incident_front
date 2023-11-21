@@ -41,11 +41,19 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5 fw-bold text-center text-primary" id="exampleModalLabel">Modification d'un rex</h1>
+        <h1 class="modal-title fs-5 fw-bold text-center text-primary" id="exampleModalLabel">Modification d'une application</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form [formGroup]="myFormenv">
+          <div class="row">
+            <div class="col-6">
+              <div class="mb-3">
+
+                <input type="hidden" class="form-control" id="libelle-text" formControlName="idApp" placeholder="">
+              </div>
+            </div>
+          </div>
           <div class="row">
 
             <div class="col-6">
@@ -66,10 +74,10 @@
           <div class="row">
             <div class="col-6">
               <div class="mb-3">
-                <label for="code-name" class="col-form-label">Nom:</label>
+                <label for="code-name" class="col-form-label">Nom du rex:</label>
                 <select class="form-select" aria-label="Default select example" formControlName="rex">
 
-                   <option value="{{rex.idRex}}" *ngFor="let rex of rex">{{rex.nom}}</option>
+                   <option value="{{rex.idRex}}" *ngFor="let rex of rexList">{{rex.nom}}</option>
 
 
 
